@@ -1,1 +1,9 @@
 fastapi[standard]
+databases[asyncpg] 
+sqlalchemy
+mssql-python
+python-dotenv
+pyodbc
+azure-identity
+azure-communication-identity
+azure-communication-sms
