@@ -1,17 +1,15 @@
 import pyodbc
-from azure.identity import DefaultAzureCredential
-# Define your connection parameters
-server = 'tcp:vaibhav-database-server.database.windows.net,1433'
-database = 'task-manager'
-driver = '{ODBC Driver 18 for SQL Server}'
-# Get a token using Azure Identity
-credential = DefaultAzureCredential()
-token = credential.get_token("https://database.windows.net/.default")
-# Create a connection string
-connection_string = f"Driver={driver};Server={server};Database={database};Authentication=ActiveDirectoryAccessToken;UID=;PWD={token.token};"
-# Connect to the database
-with pyodbc.connect(connection_string) as conn:
-    cursor = conn.cursor()
-    cursor.execute("SELECT @@VERSION;")
-    row = cursor.fetchone()
-    print(row)
+server = 'vaibhav-database-server.database.windows.net'
+database = 'task-manager'  # Replace with your database name
+username = 'CloudSA5d14747a'  # Replace with your username
+conn = pyodbc.connect(
+    f'Driver={{ODBC Driver 18 for SQL Server}};'
+    f'Server=tcp:{server},1433;'
+    f'Database={database};'
+    f'Uid={username};'
+    f'Encrypt=yes;'
+    f'TrustServerCertificate=no;'
+    f'Connection Timeout=30;'
+    f'Authentication=ActiveDirectoryIntegrated;'
+)
+cursor = conn.cursor()
