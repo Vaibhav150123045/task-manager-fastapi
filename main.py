@@ -1,44 +1,19 @@
-from typing import Union
 from fastapi import FastAPI
-from pydantic import BaseModel
+from routes import user_authentication
 
-app = FastAPI()
+app = FastAPI(title="My FastAPI App", version="1.0.0")
 
-
-class Item(BaseModel):
-    id: int
-    name: str
-    description: Union[str, None] = None
-    price: float
-    tax: Union[float, None] = None
-
-
-items = {}
+# Include routers
+app.include_router(user_authentication.router,
+                   prefix="/user_authentication", tags=["Authentication"])
+# app.include_router(users.router, prefix="/users", tags=["Users"])
+# app.include_router(items.router, prefix="/items", tags=["Items"])
 
 
 @app.get("/")
-def read_root() -> dict[str, Union[str, int]]:
-    return {"message": "Hello, World!", "status": 200}
+async def root():
+    return {"message": "Welcome to FastAPI App"}
 
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    if item_id not in items:
-        return {"error": "Item not found"}
-    # item_details =
-    return {"item_id": item_id, "item": items[item_id]}
-
-
-@app.post("/items/")
-def create_item(item: Item) -> dict[str, Union[str, float, None]]:
-    item_dict = item.model_dump()
-    item_id = item.id
-    items[item_id] = item
-    return item_dict
-
-
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: Item) -> dict[str, Union[int, str, float, None]]:
-    # Update the item in the in-memory storage
-    items[item_id] = item
-    return {"item_id": item_id, **item.model_dump()}
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=8000)
