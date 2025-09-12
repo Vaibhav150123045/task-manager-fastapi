@@ -7,7 +7,7 @@ from database import Base  # Import your SQLAlchemy Base here
 # User Table
 # =======================
 class User(Base):
-    __tablename__ = "users"
+    __tablename__ = "User"
 
     userID = Column(Integer, primary_key=True, index=True)
     username = Column(String, unique=True, nullable=False)
@@ -25,10 +25,10 @@ class User(Base):
 # User Credential Table
 # =======================
 class UserCredential(Base):
-    __tablename__ = "user_credentials"
+    __tablename__ = "UserCredentialDetails"
 
     credentialsID = Column(Integer, primary_key=True, index=True)
-    userID = Column(Integer, ForeignKey("users.userID"))
+    userID = Column(Integer, ForeignKey("User.userID"))
     hashed_password = Column(String, nullable=False)
     isCurrent = Column(Boolean, default=True)
     created_at = Column(DateTime, default=func.now())
@@ -40,10 +40,10 @@ class UserCredential(Base):
 # User Session Table
 # =======================
 class UserSession(Base):
-    __tablename__ = "user_sessions"
+    __tablename__ = "UserSessions"
 
     sessionID = Column(Integer, primary_key=True, index=True)
-    userID = Column(Integer, ForeignKey("users.userID"))
+    userID = Column(Integer, ForeignKey("User.userID"))
     created_at = Column(DateTime, default=func.now())
     is_active = Column(Boolean, default=True)
 

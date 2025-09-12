@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from models import User, UserCredential
-from schemas import UserCreate
+from models.users import User, UserCredential
+from schemas.users import UserCreate
 from datetime import datetime
 from passlib.hash import bcrypt
 
