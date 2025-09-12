@@ -80,8 +80,8 @@ A simple user management system with **JWT authentication** and **route protecti
 
 ## Suggested Tech Stack  
 
-- **Backend**: Node.js / Express or Python / FastAPI  
-- **Database**: PostgreSQL / MySQL  
+- **Backend**: FastAPI  
+- **Database**: MySQL  
 - **Authentication**: JWT (JSON Web Tokens)  
 - **Password Hashing**: bcrypt / Argon2  
 
