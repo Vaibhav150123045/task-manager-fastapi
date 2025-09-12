@@ -7,3 +7,4 @@ pyodbc
 azure-identity
 uvicorn[standard]
 pydantic
+passlib[bcrypt]
